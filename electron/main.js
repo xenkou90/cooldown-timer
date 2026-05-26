@@ -1,26 +1,27 @@
-// electron/main.js
-
-// Import the parts of Electron we need.
-// 'app' controls the application's lifecycle (startup, shutdown).
-// 'BrowserWindow' is the class we use to create windows.
-
 const { app, BrowserWindow } = require("electron");
 const path = require("path");
 
-// A function whose job is to create a window.
-// We wrap it in a function so we can call it at the right moment.
+// Detect whether we are in development mode
+// I'm setting this envitonment variable myself when running in dev
+const isDev = process.env.NODE_ENV === "development";
+
 function createWindow() {
     const win = new BrowserWindow({
         width: 400,
         height: 500,
     });
 
-    // For now, load a simple local HTML file into the window.
-    win.loadFile(path.join(__dirname, "index.html"));
+    if (isDev) {
+        // In development: load the live Vite dev server
+        win.loadURL("http://localhost:5173");
+        // Open DevTools automatically so we can debug
+        win.webContents.openDevTools();
+    } else {
+        // In production: load the built file from disk
+        win.loadFile(path.join(__dirname, "../dist/index.html"));
+    }
 }
 
-// 'app.whenReady()' returns a Promise that resolves once Electron
-// has finished initializing. We can't create windows before this.
 app.whenReady().then(() => {
     createWindow();
 });
