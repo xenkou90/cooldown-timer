@@ -1,8 +1,9 @@
 {
   "name": "cooldown-timer",
   "version": "1.0.0",
+  "type": "module",
   "description": "",
-  "main": "electron/main.js",
+  "main": "electron/main.cjs",
   "scripts": {
     "dev:vite": "vite",
     "dev:electron": "cross-env NODE_ENV=development electron .",
@@ -12,7 +13,6 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "commonjs",
   "devDependencies": {
     "@vitejs/plugin-react": "^6.0.2",
     "concurrently": "^9.2.1",
