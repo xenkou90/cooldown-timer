@@ -16,3 +16,11 @@ export const DURATIONS = Object.freeze({
 
 // Every Nth break is a long break
 export const LONG_BREAK_INTERVAL = 4;
+
+// Human-friendly labels and a color for each phase
+// Kept here so all "what does each phase look like" info lives in one place
+export const PHASE_INFO = Object.freeze({
+    [PHASES.WORK]: { label: "Focus Time", color: "#2f6f4f" },
+    [PHASES.SHORT_BREAK]: { label: "Short Break", color: "#1f5673" },
+    [PHASES.LONG_BREAK]: { label: "Long Break", color: "#6b4f8c" },
+});
