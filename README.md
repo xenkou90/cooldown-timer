@@ -1,6 +1,6 @@
-# Productivity Timer
+# Cooldown Timer
 
-A desktop productivity timer with structured work/break cycles.
+Cooldown Timer enforces breaks because breaks aren't optional — they're how you sustain focus.
 
 ## Cycle
 
