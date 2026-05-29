@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { PHASES, DURATIONS, PHASE_INFO } from "./logic/timerConfig.js";
 import { formatTime } from "./logic/formatTime.js";
 import { getNextState } from "./logic/timerEngine.js";
+import ConfirmModal from "./components/ConfirmModal.jsx";
 
 function App() {
     const [phase, setPhase] = useState(PHASES.WORK);
@@ -9,6 +10,7 @@ function App() {
     const [secondsRemaining, setSecondsRemaining] = useState(DURATIONS[PHASES.WORK]);
     const [endTime, setEndTime] = useState(null);
     const [isRunning, setIsRunning] = useState(false);
+    const [isResetModalOpen, setIsResetModalOpen] = useState(false);
 
     // Start the current phase: set the endTime and mark as running
     function start() {
@@ -23,13 +25,23 @@ function App() {
         setEndTime(null);
     }
 
-    // Reset the whole timer back to a fresh WORK phase, paused
-    function reset() {
+    // The actual reset logic. Only called from the modal's Confirm button
+    function performReset() {
         setIsRunning(false);
         setEndTime(null);
         setPhase(PHASES.WORK);
         setCompletedBreaks(0);
         setSecondsRemaining(DURATIONS[PHASES.WORK]);
+        setIsResetModalOpen(false);
+    }
+
+    // Clicking the Reset button just opens the modal - doesn't reset yet
+    function requestReset() {
+        setIsResetModalOpen(true);
+    }
+
+    function cancelReset() {
+        setIsResetModalOpen(false);
     }
 
     // The tick effect: while running, recompute secondsRemaining every 250ms
@@ -91,8 +103,17 @@ function App() {
                 ) : (
                     <button onClick={start} style={buttonStyle}>Start</button>
                 )}
-                <button onClick={reset} style={buttonStyle}>Reset</button>
+                <button onClick={requestReset} style={buttonStyle}>Reset</button>
             </div>
+
+            <ConfirmModal
+                isOpen={isResetModalOpen}
+                message="Reset the timer? Your current session will be lost."
+                confirmLabel="Reset"
+                cancelLabel="Cancel"
+                onConfirm={performReset}
+                onCancel={cancelReset}
+            />
         </div>
     );
 }
