@@ -73,6 +73,12 @@ function App() {
     const info = PHASE_INFO[phase];
     const timeString = formatTime(secondsRemaining);
 
+    // Keep the window title in sync with the current time and phase
+    // Visible in the OS taskbar/ Alt-Tab switcher even when minimized
+    useEffect(() => {
+        document.title = `${timeString} — ${info.label}`;
+    }, [timeString, info.label]);
+
     return (
         <div
             style={{
