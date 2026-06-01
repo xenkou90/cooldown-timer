@@ -79,6 +79,40 @@ function App() {
         document.title = `${timeString} — ${info.label}`;
     }, [timeString, info.label]);
 
+    // Global keyboard shortcuts
+    // Spacebar toggles start/pause
+    useEffect(() => {
+        function handleKeyDown(event) {
+            // Ignore auto-repeat from holding the key down
+            if (event.repeat) return;
+
+            // Ignore shortcut when the reset modal is open
+            // let the modal own the keyboard while it is up
+            if (isResetModalOpen) return;
+
+            // Ignore shortcut when the user is typing into an ipnut or text area
+            // (future-proofing for when I add settings etc.)
+            const target = event.target;
+            const isTyping =
+                target.tagName === "INPUT" ||
+                target.tagName === "TEXTAREA" ||
+                target.isContentEditable;
+            if (isTyping) return;
+
+            if (event.code === "Space") {
+                event.preventDefault(); // stop the browser from scrolling or re-clicking buttons
+                if (isRunning) {
+                    pause();
+                } else {
+                    start();
+                }
+            }
+        }
+
+        window.addEventListener("keydown", handleKeyDown);
+        return () => window.removeEventListener("keydown", handleKeyDown);
+    }, [isRunning, isResetModalOpen]);
+
     return (
         <div
             style={{
@@ -111,6 +145,10 @@ function App() {
                 )}
                 <button onClick={requestReset} style={buttonStyle}>Reset</button>
             </div>
+
+            <p style={{ fontSize: "0.75rem", marginTop: "1rem", opacity: 0.5 }}>
+                Press Space to start or pause
+            </p>
 
             <ConfirmModal
                 isOpen={isResetModalOpen}
