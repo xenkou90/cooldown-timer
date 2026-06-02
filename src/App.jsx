@@ -3,6 +3,7 @@ import { PHASES, DURATIONS, PHASE_INFO } from "./logic/timerConfig.js";
 import { formatTime } from "./logic/formatTime.js";
 import { getNextState } from "./logic/timerEngine.js";
 import ConfirmModal from "./components/ConfirmModal.jsx";
+import CycleDots from "./components/CycleDots.jsx";
 
 function App() {
     const [phase, setPhase] = useState(PHASES.WORK);
@@ -133,9 +134,7 @@ function App() {
             <h1 style={{ fontSize: "5rem", margin: 0, fontVariantNumeric: "tabular-nums" }}>
                 {timeString}
             </h1>
-            <p style={{ fontSize: "0.9rem", marginTop: "1rem", opacity: 0.7 }}>
-                Breaks Completed: {completedBreaks}
-            </p>
+            <CycleDots completedBreaks={completedBreaks} />
 
             <div style={{ marginTop: "2rem", display: "flex", gap: "0.75rem" }}>
                 {isRunning ? (
