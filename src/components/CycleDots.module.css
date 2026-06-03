@@ -1,0 +1,29 @@
+.dotsRow {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  align-items: center;
+}
+
+.dot {
+  border-radius: 50%;
+  transition: background-color 0.3s ease;
+  width: 8px;
+  height: 8px;
+  background-color: rgba(255, 255, 255, 0.25);
+}
+
+.dotCompleted {
+  background-color: rgba(255, 255, 255, 0.85);
+}
+
+.dotLong {
+  width: 12px;
+  height: 12px;
+  border: 2px solid rgba(255, 255, 255, 0.85);
+  background-color: transparent;
+}
+
+.dotLongCompleted {
+  background-color: rgba(255, 255, 255, 0.85);
+}

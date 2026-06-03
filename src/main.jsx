@@ -1,9 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App.jsx";
+import "./styles/styles.css";
 
-// Find the <div id="root"> from index.html and tell React to control it
 const root = ReactDOM.createRoot(document.getElementById("root"));
-
-// Render our App component inside that root
 root.render(<App />);

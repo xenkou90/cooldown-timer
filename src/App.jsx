@@ -4,6 +4,7 @@ import { formatTime } from "./logic/formatTime.js";
 import { getNextState } from "./logic/timerEngine.js";
 import ConfirmModal from "./components/ConfirmModal.jsx";
 import CycleDots from "./components/CycleDots.jsx";
+import styles from "./App.module.css";
 
 function App() {
     const [phase, setPhase] = useState(PHASES.WORK);
@@ -115,39 +116,19 @@ function App() {
     }, [isRunning, isResetModalOpen]);
 
     return (
-        <div
-            style={{
-                backgroundColor: info.color,
-                color: "white",
-                height: "100vh",
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                justifyContent: "center",
-                fontFamily: "sans-serif",
-                margin: 0,
-            }}
-        >
-            <p style={{ fontSize: "1.5rem", margin: "0 0 0.5rem 0", opacity: 0.9 }}>
-                {info.label}
-            </p>
-            <h1 style={{ fontSize: "5rem", margin: 0, fontVariantNumeric: "tabular-nums" }}>
-                {timeString}
-            </h1>
+        <div className={styles.container} style={{ backgroundColor: info.color }}>
+            <p className={styles.phaseLabel}>{info.label}</p>
+            <h1 className={styles.timeDisplay}>{timeString}</h1>
             <CycleDots completedBreaks={completedBreaks} />
 
-            <div style={{ marginTop: "2rem", display: "flex", gap: "0.75rem" }}>
+            <div className={styles.controlsRow}>
                 {isRunning ? (
-                    <button onClick={pause} style={buttonStyle}>Pause</button>
+                    <button onClick={pause} className={styles.button}>Pause</button>
                 ) : (
-                    <button onClick={start} style={buttonStyle}>Start</button>
+                    <button onClick={start} className={styles.button}>Start</button>
                 )}
-                <button onClick={requestReset} style={buttonStyle}>Reset</button>
+                <button onClick={requestReset} className={styles.button}>Reset</button>
             </div>
-
-            <p style={{ fontSize: "0.75rem", marginTop: "1rem", opacity: 0.5 }}>
-                Press Space to start or pause
-            </p>
 
             <ConfirmModal
                 isOpen={isResetModalOpen}
@@ -160,15 +141,5 @@ function App() {
         </div>
     );
 }
-
-const buttonStyle = {
-    padding: "0.5rem 1.25rem",
-    fontSize: "1rem",
-    border: "none",
-    borderRadius: "4px",
-    backgroundColor: "rgba(255, 255, 255, 0.2)",
-    color: "white",
-    cursor: "pointer",
-};
 
 export default App;
