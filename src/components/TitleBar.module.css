@@ -1,0 +1,9 @@
+/* The whole title bar is a drag region — user can grab it to move the window. */
+.titleBar {
+  -webkit-app-region: drag;
+}
+
+/* But the buttons within it must NOT be draggable, or clicks won't register. */
+.titleBar :global(.title-bar-controls) button {
+  -webkit-app-region: no-drag;
+}

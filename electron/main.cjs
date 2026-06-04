@@ -1,26 +1,39 @@
-const { app, BrowserWindow } = require("electron");
+const { app, BrowserWindow, ipcMain } = require("electron");
 const path = require("path");
 
-// Detect whether we are in development mode
-// I'm setting this envitonment variable myself when running in dev
 const isDev = process.env.NODE_ENV === "development";
 
 function createWindow() {
     const win = new BrowserWindow({
-        width: 400,
-        height: 500,
+        width: 720,
+        height: 480,
+        resizable: false,
+        frame: false, // No OS title bar
+        webPreferences: {
+            preload: path.join(__dirname, "preload.cjs"),
+            contextIsolation: true,
+            nodeIntegration: false,
+        },
     });
 
     if (isDev) {
-        // In development: load the live Vite dev server
         win.loadURL("http://localhost:5173");
-        // Open DevTools automatically so we can debug
-        win.webContents.openDevTools();
+        win.webContents.openDevTools({ mode: "detach" });
     } else {
-        // In production: load the built file from disk
         win.loadFile(path.join(__dirname, "../dist/index.html"));
     }
 }
+
+// IPC handlers: listen for messages from the renderer
+ipcMain.on("window-minimize", (event) => {
+    const win = BrowserWindow.fromWebContents(event.sender);
+    win?.minimize();
+});
+
+ipcMain.on("window-close", (event) => {
+    const win = BrowserWindow.fromWebContents(event.sender);
+    win?.close();
+});
 
 app.whenReady().then(() => {
     createWindow();

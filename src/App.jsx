@@ -5,6 +5,7 @@ import { getNextState } from "./logic/timerEngine.js";
 import ConfirmModal from "./components/ConfirmModal.jsx";
 import CycleDots from "./components/CycleDots.jsx";
 import styles from "./App.module.css";
+import TitleBar from "./components/TitleBar.jsx";
 
 function App() {
     const [phase, setPhase] = useState(PHASES.WORK);
@@ -116,28 +117,35 @@ function App() {
     }, [isRunning, isResetModalOpen]);
 
     return (
-        <div className={styles.container} style={{ backgroundColor: info.color }}>
-            <p className={styles.phaseLabel}>{info.label}</p>
-            <h1 className={styles.timeDisplay}>{timeString}</h1>
-            <CycleDots completedBreaks={completedBreaks} />
+        <div className="window" style={{ width: "100%", height: "100vh", margin: 0 }}>
+            <TitleBar phase={phase} secondsRemaining={secondsRemaining} />
+            <div className="window-body" style={{ height: "calc(100% - 33px", margin: 0, padding: 0 }}>
+                <div className={styles.container} style={{ backgroundColor: info.color }}>
+                    <p className={styles.phaseLabel}>{info.label}</p>
+                    <h1 className={styles.timeDisplay}>{timeString}</h1>
+                    <CycleDots completedBreaks={completedBreaks} />
 
-            <div className={styles.controlsRow}>
-                {isRunning ? (
-                    <button onClick={pause} className={styles.button}>Pause</button>
-                ) : (
-                    <button onClick={start} className={styles.button}>Start</button>
-                )}
-                <button onClick={requestReset} className={styles.button}>Reset</button>
+                    <div className={styles.controlsRow}>
+                        {isRunning ? (
+                            <button onClick={pause} className={styles.button}>Pause</button>
+                        ) : (
+                            <button onClick={start} className={styles.button}>Start</button>
+                        )}
+                        <button onClick={requestReset} className={styles.button}>Reset</button>
+                    </div>
+
+                    <p className={styles.shortcutHint}>Press Space to start or pause</p>
+
+                    <ConfirmModal
+                        isOpen={isResetModalOpen}
+                        message="Reset the timer? Your current session will be lost."
+                        confirmLabel="Reset"
+                        cancelLabel="Cancel"
+                        onConfirm={performReset}
+                        onCancel={cancelReset}
+                    />
+                </div>
             </div>
-
-            <ConfirmModal
-                isOpen={isResetModalOpen}
-                message="Reset the timer? Your current session will be lost."
-                confirmLabel="Reset"
-                cancelLabel="Cancel"
-                onConfirm={performReset}
-                onCancel={cancelReset}
-            />
         </div>
     );
 }
