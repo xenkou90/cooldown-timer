@@ -1,45 +1,84 @@
-.container {
-    color: white;
-    height: 100vh;
+.windowBody {
+    height: calc(100% - 33px);
+    margin: 0;
+    padding: 16px 20px;
+    box-sizing: border-box;
     display: flex;
     flex-direction: column;
+    gap: 12px;
+}
+
+/* Row 1: computer, folder, AC */
+.iconRow {
+    display: flex;
     align-items: center;
-    justify-content: center;
-    font-family: sans-serif;
+    justify-content: space-between;
+    padding: 0 20px;
+    height: 90px;
+    position: relative;
+}
+
+.computerIcon {
+    width: 90px;
+    height: auto;
+}
+
+.acIcon {
+    width: 280px;
+    height: auto;
+}
+
+.folderIcon {
+    width: 40px;
+    height: auto;
+}
+
+/* Row 2: "Saving In:" label */
+.savingLabel {
+    font-size: 14px;
+    font-weight: bold;
     margin: 0;
 }
 
-.phaseLabel {
-    font-size: 1.5rem;
-    margin: 0 0 0.5rem 0;
-    opacity: 0.9;
+/* Row 4: time-left line */
+.timeRow {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    margin: 0;
+    font-size: 14px;
 }
 
-.timeDisplay {
-    font-size: 5rem;
-    margin: 0;
+.timeRowLabel {
+    font-weight: normal;
+}
+
+.timeRowValue {
+    font-weight: bold;
     font-variant-numeric: tabular-nums;
 }
 
-.controlsRow {
-    margin-top: 2rem;
-    display: flex;
-    gap: 0.75rem;
-}
-
-.button {
-    padding: 0.5rem 1.25rem;
-    font-size: 1rem;
-    border: none;
-    border-radius: 4px;
-    background-color: rgba(255, 255, 255, 0.2);
-    color: white;
-    cursor: pointer;
-    font-family: inherit;
-}
-
+/* Row 5: dashed-border "focus rectangle" around the space hint */
 .shortcutHint {
-    font-size: 0.75rem;
-    margin-top: 1rem;
-    opacity: 0.5;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 4px 8px;
+    border: 1px dashed #000;
+    align-self: flex-start;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+/* Row 6: button row */
+.buttonRow {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    margin-top: auto; /* push to bottom of window body */
+}
+
+.actionButton {
+    min-width: 90px;
+    padding: 4px 12px;
 }

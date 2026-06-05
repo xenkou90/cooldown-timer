@@ -6,6 +6,9 @@ import ConfirmModal from "./components/ConfirmModal.jsx";
 import CycleDots from "./components/CycleDots.jsx";
 import styles from "./App.module.css";
 import TitleBar from "./components/TitleBar.jsx";
+import computerImg from "./assets/computer.png";
+import folderImg from "./assets/folder.png";
+import acImg from "./assets/ac.png";
 
 function App() {
     const [phase, setPhase] = useState(PHASES.WORK);
@@ -119,32 +122,54 @@ function App() {
     return (
         <div className="window" style={{ width: "100%", height: "100vh", margin: 0 }}>
             <TitleBar phase={phase} secondsRemaining={secondsRemaining} />
-            <div className="window-body" style={{ height: "calc(100% - 33px", margin: 0, padding: 0 }}>
-                <div className={styles.container} style={{ backgroundColor: info.color }}>
-                    <p className={styles.phaseLabel}>{info.label}</p>
-                    <h1 className={styles.timeDisplay}>{timeString}</h1>
-                    <CycleDots completedBreaks={completedBreaks} />
 
-                    <div className={styles.controlsRow}>
-                        {isRunning ? (
-                            <button onClick={pause} className={styles.button}>Pause</button>
-                        ) : (
-                            <button onClick={start} className={styles.button}>Start</button>
-                        )}
-                        <button onClick={requestReset} className={styles.button}>Reset</button>
-                    </div>
-
-                    <p className={styles.shortcutHint}>Press Space to start or pause</p>
-
-                    <ConfirmModal
-                        isOpen={isResetModalOpen}
-                        message="Reset the timer? Your current session will be lost."
-                        confirmLabel="Reset"
-                        cancelLabel="Cancel"
-                        onConfirm={performReset}
-                        onCancel={cancelReset}
-                    />
+            <div className={`window-body ${styles.windowBody}`}>
+                {/* Row 1: icons */}
+                <div className={styles.iconRow}>
+                    <img src={computerImg} alt="Computer" className={styles.computerIcon} />
+                    <img src={folderImg} alt="Folder being copied" className={styles.folderIcon} />
+                    <img src={acImg} alt="Air conditioner" className={styles.acIcon} />
                 </div>
+
+                {/* Row 2: Saving in label */}
+                <p className={styles.savingLabel}>Saving In:</p>
+
+                {/* Row 3: progress bar (static for now - wired in next commit) */}
+                <div role="progressbar" className="progress-indicator segmented">
+                    <span className="progress-indicator-bar" style={{ width: "30%" }} />
+                </div>
+
+                {/* Row 4: time left */}
+                <p className={styles.timeRow}>
+                    <span className={styles.timeRowLabel}>Estimated time left:</span>
+                    <span className={styles.timeRowValue}>{timeString}</span>
+                </p>
+
+                {/* Row 5: shortcut hint */}
+                <div className={styles.shortcutHint}>
+                    <input type="checkbox" defaultChecked id="space-hint" readOnly />
+                    <label htmlFor="space-hint">Press Space to Start or Pause</label>
+                </div>
+
+                {/* Row 6: buttons */}
+                <div className={styles.buttonRow}>
+                    {isRunning ? (
+                        <button onClick={pause} className={styles.actionButton}>Pause</button>
+                    ) : (
+                        <button onClick={start} className={styles.actionButton}>Start</button>
+                    )}
+                    <button onClick={requestReset} className={styles.actionButton}>Reset</button>
+                    <button onClick={() => window.api.closeWindow()} className={styles.actionButton}>Cancel</button>
+                </div>
+
+                <ConfirmModal
+                    isOpen={isResetModalOpen}
+                    message="Reset the timer? Your current session will be lost."
+                    confirmLabel="Reset"
+                    cancelLabel="Cancel"
+                    onConfirm={performReset}
+                    onCancel={cancelReset}
+                />
             </div>
         </div>
     );
