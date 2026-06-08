@@ -79,6 +79,11 @@ function App() {
     const info = PHASE_INFO[phase];
     const timeString = formatTime(secondsRemaining);
 
+    // Percentage of current phase that has elapsed
+    const totalSeconds = DURATIONS[phase];
+    const elapsedSeconds = totalSeconds - secondsRemaining;
+    const percentage = Math.round((elapsedSeconds / totalSeconds) * 100);
+
     // Keep the window title in sync with the current time and phase
     // Visible in the OS taskbar/ Alt-Tab switcher even when minimized
     useEffect(() => {
@@ -121,7 +126,7 @@ function App() {
 
     return (
         <div className="window" style={{ width: "100%", height: "100vh", margin: 0 }}>
-            <TitleBar phase={phase} secondsRemaining={secondsRemaining} />
+            <TitleBar phase={phase} percentage={percentage} />
 
             <div className={`window-body ${styles.windowBody}`}>
                 {/* Row 1: icons */}
@@ -135,8 +140,14 @@ function App() {
                 <p className={styles.savingLabel}>Saving In:</p>
 
                 {/* Row 3: progress bar (static for now - wired in next commit) */}
-                <div role="progressbar" className="progress-indicator segmented">
-                    <span className="progress-indicator-bar" style={{ width: "30%" }} />
+                <div
+                    role="progressbar"
+                    aria-valuenow={percentage}
+                    aria-valuemin={0}
+                    aria-valuemax={100}
+                    className="progress-indicator segmented"
+                >
+                    <span className="progress-indicator-bar" style={{ width: `${percentage}%` }} />
                 </div>
 
                 {/* Row 4: time left */}

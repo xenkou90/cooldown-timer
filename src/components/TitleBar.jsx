@@ -1,13 +1,7 @@
-import { PHASES, DURATIONS } from "../logic/timerConfig.js";
+import { PHASES } from "../logic/timerConfig.js";
 import styles from "./TitleBar.module.css";
 
-function TitleBar({ phase, secondsRemaining }) {
-    // Calculate percentage of current phase that's elapsed.
-    const total = DURATIONS[phase];
-    const elapsed = total - secondsRemaining;
-    const percentage = Math.round((elapsed / total) * 100);
-
-    // Choose the right noun: "work" for WORK phase, "break" from any break phase
+function TitleBar({ phase, percentage }) {
     const phaseWord = phase === PHASES.WORK ? "work" : "break";
 
     return (
