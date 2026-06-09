@@ -132,7 +132,11 @@ function App() {
                 {/* Row 1: icons */}
                 <div className={styles.iconRow}>
                     <img src={computerImg} alt="Computer" className={styles.computerIcon} />
-                    <img src={folderImg} alt="Folder being copied" className={styles.folderIcon} />
+                    <img
+                        src={folderImg}
+                        alt="Folder being copied"
+                        className={`${styles.folderIcon} ${!isRunning ? styles.folderIconPaused : ""}`}
+                    />
                     <img src={acImg} alt="Air conditioner" className={styles.acIcon} />
                 </div>
 

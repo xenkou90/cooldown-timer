@@ -8,7 +8,8 @@
     gap: 12px;
 }
 
-/* Row 1: computer, folder, AC */
+/* Row 1: computer, folder, AC. Position: relative so the folder
+   can be absolutely positioned within it. */
 .iconRow {
     display: flex;
     align-items: center;
@@ -28,9 +29,41 @@
     height: auto;
 }
 
+/* The folder floats over the row. Starts near the computer,
+   animation moves it rightward toward the AC. */
 .folderIcon {
+    position: absolute;
     width: 40px;
     height: auto;
+    left: 100px;
+    top: 50%;
+    transform: translateY(-50%);
+    animation: flyAcross 5s linear infinite;
+}
+
+/* When the timer is paused, freeze the animation in place */
+.folderIconPaused {
+    animation-play-state: paused;
+}
+
+/* The animation itself: translate rightward and fade in/out */
+@keyframes flyAcross {
+    0% {
+        transform: translate(0, -50%);
+        opacity: 0;
+    }
+    15% {
+        transform: translate(20px, -50%);
+        opacity: 1;
+    }
+    85% {
+        transform: translate(300px, -50%);
+        opacity: 1;
+    }
+    100% {
+        transform: translate(400px, -50%);
+        opacity: 0;
+    }
 }
 
 /* Row 2: "Saving In:" label */
