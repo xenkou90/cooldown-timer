@@ -48,22 +48,10 @@
 
 /* The animation itself: translate rightward and fade in/out */
 @keyframes flyAcross {
-    0% {
-        transform: translate(0, -50%);
-        opacity: 0;
-    }
-    15% {
-        transform: translate(20px, -50%);
-        opacity: 1;
-    }
-    85% {
-        transform: translate(300px, -50%);
-        opacity: 1;
-    }
-    100% {
-        transform: translate(400px, -50%);
-        opacity: 0;
-    }
+  0%   { transform: translate(0, -50%)     rotate(0deg);   opacity: 0; }
+  15%  { transform: translate(20px, -50%)  rotate(0deg);   opacity: 1; }
+  85%  { transform: translate(300px, -50%) rotate(720deg); opacity: 1; }
+  100% { transform: translate(400px, -50%) rotate(720deg); opacity: 0; }
 }
 
 /* Row 2: "Saving In:" label */
