@@ -179,9 +179,10 @@ function App() {
 
                 <ConfirmModal
                     isOpen={isResetModalOpen}
+                    title="Confirm reset"
                     message="Reset the timer? Your current session will be lost."
-                    confirmLabel="Reset"
-                    cancelLabel="Cancel"
+                    confirmLabel="Yes"
+                    cancelLabel="No"
                     onConfirm={performReset}
                     onCancel={cancelReset}
                 />
