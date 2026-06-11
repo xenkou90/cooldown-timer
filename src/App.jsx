@@ -17,21 +17,19 @@ function App() {
     const [endTime, setEndTime] = useState(null);
     const [isRunning, setIsRunning] = useState(false);
     const [isResetModalOpen, setIsResetModalOpen] = useState(false);
+    const [isCloseModalOpen, setIsCloseModalOpen] = useState(false);
 
-    // Start the current phase: set the endTime and mark as running
     function start() {
         const newEndTime = Date.now() + secondsRemaining * 1000;
         setEndTime(newEndTime);
         setIsRunning(true);
     }
 
-    // Pause: stop ticking but keep secondsRemaining where it is
     function pause() {
         setIsRunning(false);
         setEndTime(null);
     }
 
-    // The actual reset logic. Only called from the modal's Confirm button
     function performReset() {
         setIsRunning(false);
         setEndTime(null);
@@ -41,13 +39,25 @@ function App() {
         setIsResetModalOpen(false);
     }
 
-    // Clicking the Reset button just opens the modal - doesn't reset yet
     function requestReset() {
         setIsResetModalOpen(true);
     }
 
     function cancelReset() {
         setIsResetModalOpen(false);
+    }
+
+    function requestClose() {
+        setIsCloseModalOpen(true);
+    }
+
+    function performClose() {
+        setIsCloseModalOpen(false);
+        window.api.closeWindow();
+    }
+
+    function cancelClose() {
+        setIsCloseModalOpen(false);
     }
 
     // The tick effect: while running, recompute secondsRemaining every 250ms
@@ -99,7 +109,7 @@ function App() {
 
             // Ignore shortcut when the reset modal is open
             // let the modal own the keyboard while it is up
-            if (isResetModalOpen) return;
+            if (isResetModalOpen || isCloseModalOpen) return;
 
             // Ignore shortcut when the user is typing into an ipnut or text area
             // (future-proofing for when I add settings etc.)
@@ -122,7 +132,7 @@ function App() {
 
         window.addEventListener("keydown", handleKeyDown);
         return () => window.removeEventListener("keydown", handleKeyDown);
-    }, [isRunning, isResetModalOpen]);
+    }, [isRunning, isResetModalOpen, isCloseModalOpen]);
 
     return (
         <div className="window" style={{ width: "100%", height: "100vh", margin: 0 }}>
@@ -174,7 +184,7 @@ function App() {
                         <button onClick={start} className={styles.actionButton}>Start</button>
                     )}
                     <button onClick={requestReset} className={styles.actionButton}>Reset</button>
-                    <button onClick={() => window.api.closeWindow()} className={styles.actionButton}>Cancel</button>
+                    <button onClick={requestClose} className={styles.actionButton}>Cancel</button>
                 </div>
 
                 <ConfirmModal
@@ -185,6 +195,16 @@ function App() {
                     cancelLabel="No"
                     onConfirm={performReset}
                     onCancel={cancelReset}
+                />
+
+                <ConfirmModal
+                    isOpen={isCloseModalOpen}
+                    title="Close Cooldown Timer"
+                    message="Close Cooldown Timer? Your current session will be lost."
+                    confirmLabel="Yes"
+                    cancelLabel="No"
+                    onConfirm={performClose}
+                    onCancel={cancelClose}
                 />
             </div>
         </div>
