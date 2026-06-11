@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import folderImg from "../assets/folder.png";
+import warningImg from "../assets/warning.png";
 import styles from "./ConfirmModal.module.css";
 
 function ConfirmModal({
@@ -39,7 +39,7 @@ function ConfirmModal({
           </div>
         </div>
         <div className={`window-body ${styles.modalBody}`}>
-          <img src={folderImg} alt="" className={styles.icon} />
+          <img src={warningImg} alt="" className={styles.icon} />
           <p className={styles.message}>{message}</p>
         </div>
         <div className={styles.buttonRow}>
