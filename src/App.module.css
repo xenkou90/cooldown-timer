@@ -79,14 +79,19 @@
     font-variant-numeric: tabular-nums;
 }
 
-/* Row 5: dashed-border "focus rectangle" around the space hint */
-.shortcutHint {
+/* The row containing both the checkbox and the dashed-bordered label */
+.shortcutHintRow {
     display: flex;
     align-items: center;
-    gap: 8px;
-    padding: 4px 8px;
-    border: 1px dashed #000;
+    gap: 6px;
     align-self: flex-start;
+}
+
+/* The dashed focus rectangle around the label text only */
+.shortcutHintLabel {
+    border: 1px dashed #000;
+    padding: 1px 3px;
+    font-family: inherit;
     font-size: 13px;
     font-weight: bold;
 }

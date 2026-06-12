@@ -171,9 +171,11 @@ function App() {
                 </p>
 
                 {/* Row 5: shortcut hint */}
-                <div className={styles.shortcutHint}>
+                <div className={styles.shortcutHintRow}>
                     <input type="checkbox" defaultChecked id="space-hint" readOnly />
-                    <label htmlFor="space-hint">Press Space to Start or Pause</label>
+                    <label htmlFor="space-hint" className={styles.shortcutHintLabel}>
+                        Press Space to Start or Pause
+                    </label>
                 </div>
 
                 {/* Row 6: buttons */}
