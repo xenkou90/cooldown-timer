@@ -6,7 +6,7 @@ const isDev = process.env.NODE_ENV === "development";
 function createWindow() {
     const win = new BrowserWindow({
         width: 720,
-        height: 480,
+        height: 400,
         resizable: false,
         frame: false, // No OS title bar
         webPreferences: {

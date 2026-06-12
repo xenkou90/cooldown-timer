@@ -95,7 +95,7 @@
 .buttonRow {
     display: flex;
     gap: 12px;
-    justify-content: center;
+    justify-content: flex-end;
     margin-top: auto; /* push to bottom of window body */
 }
 
