@@ -9,6 +9,7 @@ function createWindow() {
         height: 400,
         resizable: false,
         frame: false, // No OS title bar
+        transparent: true,
         webPreferences: {
             preload: path.join(__dirname, "preload.cjs"),
             contextIsolation: true,

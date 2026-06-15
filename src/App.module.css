@@ -108,3 +108,9 @@
     min-width: 90px;
     padding: 4px 12px;
 }
+
+/* Override 98.css's window bevel for flat edges */
+:global(.window) {
+    padding: 0;
+    box-shadow: none;
+}

@@ -10,3 +10,9 @@ body,
 body {
     overflow: hidden;
 }
+
+/* Ensure no rounded corners anywhere on the main window or root containers. */
+:global(.window),
+#root {
+    border-radius: 0;
+}

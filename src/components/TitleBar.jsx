@@ -11,7 +11,7 @@ function TitleBar({ phase, percentage }) {
             </div>
             <div className="title-bar-controls">
                 <button aria-label="Minimize" onClick={() => window.api.minimizeWindow()} />
-                <button aria-label="Maximize" />
+                <button aria-label="Maximize" disabled />
                 <button aria-label="Close" onClick={() => window.api.closeWindow()} />
             </div>
         </div>
