@@ -135,7 +135,16 @@ function App() {
     }, [isRunning, isResetModalOpen, isCloseModalOpen]);
 
     return (
-        <div className="window" style={{ width: "100%", height: "100vh", margin: 0 }}>
+        <div
+            className="window"
+            style={{
+                width: "100%",
+                height: "100vh",
+                margin: 0,
+                display: "flex",
+                flexDirection: "column",
+            }}
+        >
             <TitleBar phase={phase} percentage={percentage} />
 
             <div className={`window-body ${styles.windowBody}`}>
