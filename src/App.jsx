@@ -9,6 +9,7 @@ import TitleBar from "./components/TitleBar.jsx";
 import computerImg from "./assets/computer.png";
 import folderImg from "./assets/folder.png";
 import acImg from "./assets/ac.png";
+import { playSound } from "./logic/sounds.js";
 
 function App() {
     const [phase, setPhase] = useState(PHASES.WORK);
@@ -133,6 +134,13 @@ function App() {
         window.addEventListener("keydown", handleKeyDown);
         return () => window.removeEventListener("keydown", handleKeyDown);
     }, [isRunning, isResetModalOpen, isCloseModalOpen]);
+
+    // Play the open sound once when the app launches.
+    // Note: browsers may block this on first-ever launch due to autoplay policy.
+    // It will work normally on subsequent app starts after the user has interacted.
+    useEffect(() => {
+        playSound("openSound");
+    }, []);
 
     return (
         <div
