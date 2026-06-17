@@ -80,6 +80,15 @@ function App() {
                 setCompletedBreaks(next.completedBreaks);
                 setSecondsRemaining(next.durationSeconds);
                 setEndTime(Date.now() + next.durationSeconds * 1000);
+
+                // Play the sound for the phase we are entering
+                if (next.phase === PHASES.WORK) {
+                    playSound("workStart");
+                } else if (next.phase === PHASES.SHORT_BREAK) {
+                    playSound("shortBreakStart");
+                } else if (next.phase === PHASES.LONG_BREAK) {
+                    playSound("longBreakStart");
+                }
             }
         }, 250);
 
