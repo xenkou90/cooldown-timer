@@ -6,7 +6,7 @@ const isDev = process.env.NODE_ENV === "development";
 function createWindow() {
     const win = new BrowserWindow({
         width: 720,
-        height: 400,
+        height: 425,
         resizable: false,
         frame: false, // No OS title bar
         transparent: true,

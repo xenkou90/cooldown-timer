@@ -80,21 +80,15 @@
     font-variant-numeric: tabular-nums;
 }
 
-/* The row containing both the checkbox and the dashed-bordered label */
-.shortcutHintRow {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    align-self: flex-start;
+/* The mute checkbox row: checkbox, label with dashed focus rectangle, speaker icon */
+.muteRow {
+  align-self: flex-start;
 }
 
-/* The dashed focus rectangle around the label text only */
-.shortcutHintLabel {
-    border: 1px dashed #000;
-    padding: 1px 3px;
-    font-family: inherit;
-    font-size: 13px;
-    font-weight: bold;
+.muteIcon {
+  width: 16px;
+  height: 16px;
+  margin-left: 8px;
 }
 
 /* Row 6: button row */

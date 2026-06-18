@@ -9,7 +9,9 @@ import TitleBar from "./components/TitleBar.jsx";
 import computerImg from "./assets/computer.png";
 import folderImg from "./assets/folder.png";
 import acImg from "./assets/ac.png";
-import { playSound } from "./logic/sounds.js";
+import speakerOn from "./assets/speaker-on.png";
+import speakerOff from "./assets/speaker-off.png";
+import { playSound, setMuted } from "./logic/sounds.js";
 
 function App() {
     const [phase, setPhase] = useState(PHASES.WORK);
@@ -19,6 +21,7 @@ function App() {
     const [isRunning, setIsRunning] = useState(false);
     const [isResetModalOpen, setIsResetModalOpen] = useState(false);
     const [isCloseModalOpen, setIsCloseModalOpen] = useState(false);
+    const [isMuted, setIsMuted] = useState(false);
 
     function start() {
         const newEndTime = Date.now() + secondsRemaining * 1000;
@@ -121,7 +124,7 @@ function App() {
             // let the modal own the keyboard while it is up
             if (isResetModalOpen || isCloseModalOpen) return;
 
-            // Ignore shortcut when the user is typing into an ipnut or text area
+            // Ignore shortcut when the user is typing into an input or text area
             // (future-proofing for when I add settings etc.)
             const target = event.target;
             const isTyping =
@@ -151,6 +154,11 @@ function App() {
         playSound("openSound");
     }, []);
 
+    // Keep the audio module's mute state in sync with React state
+    useEffect(() => {
+        setMuted(isMuted);
+    }, [isMuted]);
+
     return (
         <div
             className="window"
@@ -179,7 +187,7 @@ function App() {
                 {/* Row 2: Saving in label */}
                 <p className={styles.savingLabel}>Saving In:</p>
 
-                {/* Row 3: progress bar (static for now - wired in next commit) */}
+                {/* Row 3: progress bar */}
                 <div
                     role="progressbar"
                     aria-valuenow={percentage}
@@ -196,12 +204,20 @@ function App() {
                     <span className={styles.timeRowValue}>{timeString}</span>
                 </p>
 
-                {/* Row 5: shortcut hint */}
-                <div className={styles.shortcutHintRow}>
-                    <input type="checkbox" defaultChecked id="space-hint" readOnly />
-                    <label htmlFor="space-hint" className={styles.shortcutHintLabel}>
-                        Press Space to Start or Pause
-                    </label>
+                {/* Row 5: mute toggle */}
+                <div className={`field-row ${styles.muteRow}`}>
+                    <input
+                        type="checkbox"
+                        id="mute-checkbox"
+                        checked={isMuted}
+                        onChange={(e) => setIsMuted(e.target.checked)}
+                    />
+                    <label htmlFor="mute-checkbox">Mute sounds</label>
+                    <img
+                        src={isMuted ? speakerOff : speakerOn}
+                        alt=""
+                        className={styles.muteIcon}
+                    />
                 </div>
 
                 {/* Row 6: buttons */}
@@ -234,6 +250,11 @@ function App() {
                     onConfirm={performClose}
                     onCancel={cancelClose}
                 />
+            </div>
+
+            {/* Status bar: ambient hint at the bottom */}
+            <div className="status-bar">
+                <p className="status-bar-field">Press Space to Start or Pause</p>
             </div>
         </div>
     );

@@ -18,10 +18,19 @@ Object.values(sounds).forEach((audio) => {
     audio.volume = 0.5;
 });
 
+// Module-level mute state. Synced from React via setMuted
+let muted = false;
+
+export function setMuted(value) {
+    muted = value;
+}
+
 // Play a sound by name
 // If the sound is already playing, restart it from the beginning
 // so rapid triggers don't get queued or ignored
 export function playSound(name) {
+    if (muted) return;
+
     const sound = sounds[name];
     if (!sound) {
         console.warn(`Unknown sound: ${name}`);
