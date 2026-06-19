@@ -1,23 +1,45 @@
 {
   "name": "cooldown-timer",
   "version": "1.0.0",
+  "description": "A Windows 98-themed productivity timer that enforces breaks. Imagined, created & designed by Xeno.",
+  "author": "",
   "type": "module",
-  "description": "",
   "main": "electron/main.cjs",
   "scripts": {
     "dev:vite": "vite",
     "dev:electron": "cross-env NODE_ENV=development electron .",
     "dev": "concurrently \"npm run dev:vite\" \"wait-on http:localhost:5173 && npm run dev:electron\"",
-    "build": "vite build"
+    "build": "vite build",
+    "package": "npm run build && electron-builder --win portable"
+  },
+  "build": {
+    "appId": "com.xeno.cooldowntimer",
+    "productName": "Cooldown Timer",
+    "copyright": "Imagined, created & designed by Xeno",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "dist/**/*",
+      "electron/**/*"
+    ],
+    "win": {
+      "target": "portable",
+      "artifactName": "CooldownTimer-${version}-portable.exe"
+    },
+    "portable": {
+      "artifactName": "CooldownTimer-${version}-portable.exe"
+    }
   },
   "keywords": [],
-  "author": "",
   "license": "ISC",
   "devDependencies": {
     "@vitejs/plugin-react": "^6.0.2",
     "concurrently": "^9.2.1",
     "cross-env": "^10.1.0",
     "electron": "^42.2.0",
+    "electron-builder": "^26.15.3",
+    "esbuild": "^0.28.1",
     "vite": "^8.0.14",
     "wait-on": "^9.0.10"
   },
