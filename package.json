@@ -21,10 +21,12 @@
     },
     "files": [
       "dist/**/*",
-      "electron/**/*"
+      "electron/**/*",
+      "build/**/*"
     ],
     "win": {
       "target": "portable",
+      "icon": "build/app.ico",
       "artifactName": "CooldownTimer-${version}-portable.exe"
     },
     "portable": {

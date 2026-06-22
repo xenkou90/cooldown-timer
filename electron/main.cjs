@@ -10,6 +10,7 @@ function createWindow() {
         resizable: false,
         frame: false, // No OS title bar
         transparent: true,
+        icon: path.join(__dirname, "./build/app;ico"),
         webPreferences: {
             preload: path.join(__dirname, "preload.cjs"),
             contextIsolation: true,
