@@ -252,9 +252,14 @@ function App() {
                 />
             </div>
 
-            {/* Status bar: ambient hint at the bottom */}
+            {/* Status bar: hint on the left, signature on the right */}
             <div className="status-bar">
-                <p className="status-bar-field">Press Space to Start or Pause</p>
+                <p className={`status-bar-field ${styles.statusBarFieldHalf}`}>
+                    Press Space to Start or Pause
+                </p>
+                <p className={`status-bar-field ${styles.statusBarFieldHalfRight}`}>
+                    Imagined, created &amp; designed by Xeno
+                </p>
             </div>
         </div>
     );

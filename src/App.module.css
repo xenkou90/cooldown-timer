@@ -115,3 +115,14 @@
     inset -3px -3px 0 #707070;
   padding: 4px;
 }
+
+/* Each status bar field claims half the bar's width. */
+.statusBarFieldHalf {
+  flex: 1;
+}
+
+/* The right half right-aligns its text so the signature flushes to the edge. */
+.statusBarFieldHalfRight {
+  flex: 1;
+  text-align: right;
+}
