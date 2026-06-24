@@ -50,7 +50,9 @@ The project uses ES modules throughout the renderer, with the Electron main proc
 
 ### Run the packaged app (recommended)
 
-Download `CooldownTimer-1.0.0-portable.exe` from the [Releases](https://github.com/xenkou90/cooldown-timer/releases) page. Double-click to run — no installation required.
+[**Download CooldownTimer-1.0.0-portable.exe**](https://github.com/xenkou90/cooldown-timer/releases/download/v1.0.0/CooldownTimer-1.0.0-portable.exe) — no installation required, just double-click to run.
+
+Browse all releases [here](https://github.com/xenkou90/cooldown-timer/releases).
 
 Windows SmartScreen may show an "unrecognized app" warning because the executable is not code-signed by a verified publisher. Click *More info → Run anyway* to launch.
 
