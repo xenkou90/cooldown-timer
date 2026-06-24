@@ -76,8 +76,10 @@ This starts the Vite dev server and launches Electron pointing at it, with hot r
 
 ## Project Structure
 
-cooldown-timer/
+## Project Structure
 
+```
+cooldown-timer/
 ├── electron/
 │   ├── main.cjs          # Electron main process
 │   └── preload.cjs       # contextBridge IPC setup
@@ -101,6 +103,7 @@ cooldown-timer/
 │   └── app.ico           # Multi-size Windows icon
 ├── package.json
 └── vite.config.js
+```
 
 Logic is deliberately separated from presentation. The state machine (`timerEngine.js`) is pure JavaScript with no React dependency, making it independently testable. React handles only rendering and side effects.
 
